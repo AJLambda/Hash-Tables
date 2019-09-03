@@ -15,6 +15,8 @@ class Pair:
 # '''
 class BasicHashTable:
     def __init__(self, capacity):
+        self.capacity = capacity
+        self.storage = [None] * capacity
         pass
 
 
@@ -67,3 +69,6 @@ def Testing():
 
 
 Testing()
+
+ht = BasicHashTable(16)
+print(ht.storage)
