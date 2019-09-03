@@ -17,7 +17,6 @@ class BasicHashTable:
     def __init__(self, capacity):
         self.capacity = capacity
         self.storage = [None] * capacity
-        pass
 
 
 # '''
@@ -25,7 +24,12 @@ class BasicHashTable:
 # Research and implement the djb2 hash function
 # '''
 def hash(string, max):
-    pass
+    hash = 5381
+    for x in string:
+        # hash << 5 is the same thing as multiplying hash by 2**5
+        # returns hash with the bits shifted to the left by 5 places
+        hash = ((hash << 5) + hash) + ord(x)
+    return hash % max
 
 
 # '''
@@ -34,7 +38,17 @@ def hash(string, max):
 # If you are overwriting a value with a different key, print a warning.
 # '''
 def hash_table_insert(hash_table, key, value):
-    pass
+    # set the hash index
+    # key is "string", hash table capacity is "max"
+    index = hash(key, hash_table.capacity)
+    # create the key value pair
+    new_pair = Pair(key, value)
+
+    # create warning if the index exists
+    if hash_table.storage[index]:
+        print("Warning! overwriting an existing value using a different key")
+    # add to hash table
+    hash_table.storage[index] = new_pair
 
 
 # '''
@@ -43,7 +57,15 @@ def hash_table_insert(hash_table, key, value):
 # If you try to remove a value that isn't there, print a warning.
 # '''
 def hash_table_remove(hash_table, key):
-    pass
+     # set the hash index
+    index = hash(key, hash_table.capacity)
+    # if index exists
+    if hash_table.storage[index]:
+        # remove by setting to none
+        hash_table.storage[index] = None
+    else:
+        # if key value doesnt exist
+        print("warning, no value for this key")
 
 
 # '''
@@ -52,7 +74,13 @@ def hash_table_remove(hash_table, key):
 # Should return None if the key is not found.
 # '''
 def hash_table_retrieve(hash_table, key):
-    pass
+    # set the hash index
+    index = hash(key, hash_table.capacity)
+    # if not found
+    if not hash_table.storage[index]:
+        return None
+    # retrieve the key
+    return hash_table.storage[index].value
 
 
 def Testing():
