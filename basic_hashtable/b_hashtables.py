@@ -100,3 +100,4 @@ Testing()
 
 ht = BasicHashTable(16)
 print(ht.storage)
+print(ht.capacity)
