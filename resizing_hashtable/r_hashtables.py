@@ -17,14 +17,20 @@ class LinkedPair:
 # '''
 class HashTable:
     def __init__(self, capacity):
-        pass
+        self.capacity = capacity
+        self.storage = [None] * capacity
 
 
 # '''
 # Research and implement the djb2 hash function
 # '''
 def hash(string, max):
-    pass
+    hash = 5381
+    for x in string:
+        # hash << 5 is the same thing as multiplying hash by 2**5
+        # returns hash with the bits shifted to the left by 5 places
+        hash = ((hash << 5) + hash) + ord(x)
+    return hash % max
 
 
 # '''
