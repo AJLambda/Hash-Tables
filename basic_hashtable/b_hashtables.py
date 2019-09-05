@@ -40,15 +40,22 @@ def hash(string, max):
 def hash_table_insert(hash_table, key, value):
     # set the hash index
     # key is "string", hash table capacity is "max"
+    # int index = hash_function(key) % array.length
     index = hash(key, hash_table.capacity)
     # create the key value pair
     new_pair = Pair(key, value)
 
     # create warning if the index exists
-    if hash_table.storage[index]:
-        print("Warning! overwriting an existing value using a different key")
-    # add to hash table
-    hash_table.storage[index] = new_pair
+    if hash_table.storage[index] is not None:
+        if hash_table.storage[index].key != key:
+            print(
+                "Warning! Overwriting key: {hash_table.storage[index].key}.")
+            hash_table.storage[index].key = key
+        hash_table.storage[index].value = value
+    else:
+        # add to hash table
+        # array[index] = value
+        hash_table.storage[index] = new_pair
 
 
 # '''
@@ -57,11 +64,11 @@ def hash_table_insert(hash_table, key, value):
 # If you try to remove a value that isn't there, print a warning.
 # '''
 def hash_table_remove(hash_table, key):
-     # set the hash index
+     # hash the key, max is hash table capacity
     index = hash(key, hash_table.capacity)
     # if index exists
     if hash_table.storage[index]:
-        # remove by setting to none
+        # remove the index by setting to none
         hash_table.storage[index] = None
     else:
         # if key value doesnt exist
@@ -100,3 +107,4 @@ Testing()
 
 ht = BasicHashTable(16)
 print(ht.storage)
+print(ht.capacity)
